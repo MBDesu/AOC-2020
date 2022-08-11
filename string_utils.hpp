@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 
+#pragma once
 namespace string_utils {
   void rtrim(std::string& s, const std::string& delimiters = " \f") {
     s.erase(s.find_last_not_of(delimiters) + 1);
