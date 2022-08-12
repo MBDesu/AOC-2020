@@ -27,4 +27,14 @@ namespace string_utils {
     rtrim(s, delimiter);
     return s;
   }
+
+  int unique_chars(const std::string& s) {
+    std::string unique = "";
+    for (auto& c : s) {
+      if (unique.find(c) == std::string::npos) {
+        unique += c;
+      }
+    }
+    return unique.size();
+  }
 }
