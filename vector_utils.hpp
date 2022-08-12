@@ -16,5 +16,19 @@ namespace vector_utils {
     }
     return -1;
   }
+
+  template <typename T>
+  void print(std::vector<T> v) {
+    std::cout << "[";
+    int len = v.size();
+    for (auto i = 0; i < v.size(); i++) {
+      std::cout << v[i];
+      if (i != len - 1) {
+        std::cout << ", ";
+      }
+    }
+    std::cout << "]" << std::endl;
+  }
+
 }
 
