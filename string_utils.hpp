@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <map>
 
 #pragma once
 namespace string_utils {
@@ -36,5 +37,17 @@ namespace string_utils {
       }
     }
     return unique.size();
+  }
+
+  std::map<char, int> char_frequencies(const std::string& s) {
+    std::map<char, int> frequencies;
+    for (auto& c : s) {
+      if (frequencies.find(c) == frequencies.end()) {
+        frequencies[c] = 1;
+      } else {
+        frequencies[c]++;
+      }
+    }
+    return frequencies;
   }
 }
