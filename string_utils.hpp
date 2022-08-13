@@ -50,4 +50,15 @@ namespace string_utils {
     }
     return frequencies;
   }
+
+  int count(const std::string& s, const std::string& substring) {
+    int count = 0;
+    std::string::size_type pos = 0;
+    while ((pos = s.find(substring, pos)) != std::string::npos) {
+      count++;
+      pos += substring.length();
+    }
+    return count;
+  }
+
 }

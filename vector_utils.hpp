@@ -30,5 +30,16 @@ namespace vector_utils {
     std::cout << "]" << std::endl;
   }
 
+  template <typename T>
+  int count(std::vector<T> v, T t) {
+    int count = 0;
+    for (auto& i : v) {
+      if (i == t) {
+        count++;
+      }
+    }
+    return count;
+  }
+
 }
 

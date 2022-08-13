@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "../vector_utils.hpp"
+#include "../string_utils.hpp"
 
 struct node {
   std::string name;
@@ -88,25 +89,28 @@ int sum_num_paths_to(directed_graph& graph, std::string& bag) {
 
 int parse_file(std::ifstream& file) {
   directed_graph graph;
-  // TODO: parse file
-  graph.add_edge("light red", "bright white");
-  graph.add_edge("light red", "muted yellow");
-  graph.add_edge("dark orange", "bright white");
-  graph.add_edge("dark orange", "muted yellow");
-  graph.add_edge("bright white", "shiny gold");
-  graph.add_edge("muted yellow", "shiny gold");
-  graph.add_edge("muted yellow", "faded blue");
-  graph.add_edge("shiny gold", "dark olive");
-  graph.add_edge("shiny gold", "vibrant plum");
-  graph.add_edge("dark olive", "faded blue");
-  graph.add_edge("dark olive", "dotted black");
-  graph.add_edge("vibrant plum", "faded blue");
-  graph.add_edge("vibrant plum", "dotted black");
+  while (!file.eof()) {
+    std::string line;
+    std::getline(file, line);
+    std::vector<std::string> tokens = string_utils::split(line, " ");
+    long int num_containing_bags = string_utils::count(line, std::string(",")) + 1;
+    if (num_containing_bags == 1 && tokens[4] == "no") {
+      continue;
+    }
+    std::string bag = tokens[0] + " " + tokens[1];
+    for (int i = 0; i < num_containing_bags; i++) {
+      // int num_bags = std::stoi(tokens[4 + i * 4]);
+      std::string containing_bag = tokens[5 + i * 4] + " " + tokens[6 + i * 4];
+      // for (int j = 0; j < num_bags; j++) {
+        graph.add_edge(bag, containing_bag);
+      // }
+    }
+  }
   return sum_num_paths_to(graph, std::string("shiny gold"));
 }
 
 int main() {
-  std::ifstream file("sample.txt", std::ios::in);
+  std::ifstream file("input.txt", std::ios::in);
   std::cout << parse_file(file) << std::endl;
   file.close();
   return 0;
