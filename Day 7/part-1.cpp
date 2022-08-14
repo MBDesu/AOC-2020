@@ -11,7 +11,7 @@ struct node {
   std::vector<node> neighbors;
 };
 
-class directed_graph {
+class weighted_digraph {
   public:
     std::map<std::string, node> nodes;
 
@@ -43,7 +43,7 @@ class directed_graph {
     }
 };
 
-std::vector<std::string> find_path(directed_graph& graph, std::string& from, std::string& to) {
+std::vector<std::string> find_path(weighted_digraph& graph, std::string& from, std::string& to) {
   std::vector<std::string> path;
   std::vector<std::string> visited;
   std::vector<std::string> queue;
@@ -72,7 +72,7 @@ std::vector<std::string> find_path(directed_graph& graph, std::string& from, std
   return path;
 }
 
-int sum_num_paths_to(directed_graph& graph, std::string& bag) {
+int sum_num_paths_to(weighted_digraph& graph, std::string& bag) {
   int sum = 0;
   for (auto graph_node : graph.nodes) {
     std::string node_name = graph_node.first;
@@ -88,22 +88,19 @@ int sum_num_paths_to(directed_graph& graph, std::string& bag) {
 }
 
 int parse_file(std::ifstream& file) {
-  directed_graph graph;
+  weighted_digraph graph;
   while (!file.eof()) {
     std::string line;
     std::getline(file, line);
     std::vector<std::string> tokens = string_utils::split(line, " ");
-    long int num_containing_bags = string_utils::count(line, std::string(",")) + 1;
+    int num_containing_bags = string_utils::count(line, std::string(",")) + 1;
     if (num_containing_bags == 1 && tokens[4] == "no") {
       continue;
     }
     std::string bag = tokens[0] + " " + tokens[1];
     for (int i = 0; i < num_containing_bags; i++) {
-      // int num_bags = std::stoi(tokens[4 + i * 4]);
       std::string containing_bag = tokens[5 + i * 4] + " " + tokens[6 + i * 4];
-      // for (int j = 0; j < num_bags; j++) {
-        graph.add_edge(bag, containing_bag);
-      // }
+      graph.add_edge(bag, containing_bag);
     }
   }
   return sum_num_paths_to(graph, std::string("shiny gold"));
