@@ -77,7 +77,7 @@ int parse_file(std::ifstream& file) {
 
 int main() {
   std::ifstream file("input.txt", std::ios::in);
-  std::cout << parse_file(file) << std::endl;
+  parse_file(file);
   file.close();
   return 0;
 }
